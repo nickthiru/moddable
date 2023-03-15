@@ -39,7 +39,7 @@ class Button {
 	#onPush;
 
 	constructor(options) {
-		options = {...options};
+		options = { ...options };
 		if (options.onReadable || options.onWritable || options.onError)
 			throw new Error;
 
@@ -48,7 +48,7 @@ class Button {
 
 		const Digital = options.io;
 		if (options.onPush) {
-			this.#onPush = options.onPush; 
+			this.#onPush = options.onPush;
 			options.onReadable = () => this.#onPush();
 			options.edge = Digital.Rising | Digital.Falling;
 		}
@@ -84,32 +84,24 @@ const device = {
 	SPI: {
 		default: {
 			io: SPI,
-			clock: 5,
-			in: 19,
-			out: 27,
+			clock: 14,
+			in: 12,
+			out: 13,
 			port: 1
 		}
 	},
 	Analog: {
 		default: {
 			io: Analog,
-			pin: 35
+			pin: 33
 		}
 	},
-	io: {Analog, Digital, DigitalBank, I2C, PulseCount, PWM, Serial, SMBus, SPI},
+	io: { Analog, Digital, DigitalBank, I2C, PulseCount, PWM, Serial, SMBus, SPI },
 	pin: {
 		button: 0,
-		led: 25,
-		backlight: 18,
-		displayDC: 2,
-		displaySelect: 15
+		led: 2,
 	},
 	peripheral: {
-		Backlight: class {
-			constructor() {
-				return new Backlight({pin: device.pin.backlight});
-			}
-		},
 		button: {
 			Flash: class {
 				constructor(options) {
@@ -126,7 +118,7 @@ const device = {
 		lora: {
 			Default: class {
 				constructor(options) {
-					return new LoRa ({
+					return new LoRa({
 						...options,
 						spi: {
 							...device.SPI.default,
